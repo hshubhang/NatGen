@@ -1,0 +1,5 @@
+static struct monitor * FindScreen ( fscreen_scr_arg * arg, fscreen_scr_t screen ) { struct monitor * m = NULL ; fscreen_scr_arg tmp ; if ( monitor_get_count ( ) == 0 ) return ( monitor_by_name ( GLOBAL_SCREEN_NAME ) ) ; switch ( screen ) { case FSCREEN_GLOBAL : m = monitor_by_name ( GLOBAL_SCREEN_NAME ) ; break ; case FSCREEN_PRIMARY : case FSCREEN_CURRENT : if (! arg ) { tmp. mouse_ev = NULL ; arg = & tmp ; } GetMouseXY ( arg -> mouse_ev, & arg -> xypos. x, & arg -> xypos. y ) ; 
+
+   
+
+    case FSCREEN_XYPOS : if (! arg ) { tmp. xypos. x = 0 ; tmp. xypos. y = 0 ; arg = & tmp ; } m = FindScreenOfXY ( arg -> xypos. x, arg -> xypos. y ) ; break ; case FSCREEN_BY_NAME : if ( arg == NULL || arg -> name == NULL ) { break ; } m = monitor_by_name ( arg -> name ) ; break ; default : break ; } return ( m ) ; }

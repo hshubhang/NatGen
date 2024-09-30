@@ -47,26 +47,26 @@ for l in $LANGUAGES; do
   printf "\t\t- $l\n";
 done
 
-function download_csnet() {
-  cdir=`pwd`;
-  raw_files_dir="${DATA_DIR}/raw";
-  mkdir -p ${raw_files_dir};
-  cd ${raw_files_dir};
-  for lang in python java go php javascript ruby; do
-    FILE="${lang}.pkl";
-    if [[ ! -f "$FILE" ]]; then
-      wget https://s3.amazonaws.com/code-search-net/CodeSearchNet/v2/${lang}.zip;
-      unzip ${lang}.zip;
-      rm -rf ${lang};
-      rm ${lang}.zip;
-      rm ${lang}_licenses.pkl;
-      mv ${lang}_dedupe_definitions_v2.pkl $FILE;
-    else
-      echo "$FILE already exists";
-    fi
-  done
-  cd $cdir;
-}
+# function download_csnet() {
+#   cdir=`pwd`;
+#   raw_files_dir="${DATA_DIR}/raw";
+#   mkdir -p ${raw_files_dir};
+#   cd ${raw_files_dir};
+#   for lang in python java go php javascript ruby; do
+#     FILE="${lang}.pkl";
+#     if [[ ! -f "$FILE" ]]; then
+#       wget https://s3.amazonaws.com/code-search-net/CodeSearchNet/v2/${lang}.zip;
+#       unzip ${lang}.zip;
+#       rm -rf ${lang};
+#       rm ${lang}.zip;
+#       rm ${lang}_licenses.pkl;
+#       mv ${lang}_dedupe_definitions_v2.pkl $FILE;
+#     else
+#       echo "$FILE already exists";
+#     fi
+#   done
+#   cd $cdir;
+# }
 
 function download_c_and_cs() {
   cdir=`pwd`;
@@ -120,7 +120,7 @@ function process() {
     --processing_config_file ${CONFIG_FILE};
 }
 
-download_csnet;
+#download_csnet;
 download_c_and_cs;
 process;
 
